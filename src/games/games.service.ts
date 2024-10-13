@@ -20,6 +20,12 @@ export class GamesService {
     return games;
   }
 
+  async findById(id: string): Promise<CreateGameDto> {
+    const gameFound = await this.gamesRepository.findOneBy({ id: id });
+
+    return gameFound;
+  }
+
   async findByGameName(name: string): Promise<CreateGameDto | null> {
     const gameFound = await this.gamesRepository.findOne({
       where: { name }
@@ -48,6 +54,12 @@ export class GamesService {
     const { id, name, platforms } = await this.gamesRepository.save(dbGame);
 
     return { id , name, platforms };
+  }
+
+  async update(id: string, newGameData: Partial<CreateGameDto>) {
+    await this.gamesRepository.update(id, newGameData);
+
+    return await this.findById(id);
   }
 
   async remove(id: string) {
