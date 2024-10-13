@@ -1,0 +1,10 @@
+services:
+  postgress:
+    image: postgres:latest
+    container_name: games
+    ports: 
+      - "5432:5432"
+    environment: 
+      POSTGRES_DB: games-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 87654321
